@@ -15,12 +15,10 @@ export default function SignInForm() {
     async function signIn() {
         try {
             // navigate("/blog");
-            console.log("before request");
-            // alert("Error");
-            const response = await axios.post(`${BACKEND_URL}/user/signin`, signInInputs);
+            const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, signInInputs);
+            // const response = await axios.get(`${BACKEND_URL}`);
             const jwt = response.data.jwt;
             console.log("Signed In");
-            alert("Sined In");
             localStorage.setItem("token", jwt);
             navigate("/blog");
         } catch (e) {

@@ -2,7 +2,6 @@ import { Prisma, PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { verify } from "hono/jwt";
 import { Hono } from "hono";
-import { JWTPayload } from "hono/utils/jwt/types";
 import { createBlogInput } from "@dawarepramod4/medium-common";
 type Variables = {
     userid: any;
