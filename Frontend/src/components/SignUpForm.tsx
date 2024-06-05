@@ -25,47 +25,45 @@ export default function SignUpForm() {
             navigate("/blog");
         } catch (e) {
             console.error(e);
-            alert("Error")
+            alert("Error");
         }
     }
 
     return (
-        <form>
-            <div className="basis-1/2 flex justify-center justify-items-center">
-                <div className="w-3/4 max-w-md block">
-                    <div className="text-center font-bold text-xl">Create an Account</div>
-                    <div className="text-center text-sm">
-                        Alreay have an account? <Link to={"/signin"}>SignIn</Link>{" "}
-                    </div>
-                    <FieldWithLabel
-                        label="Name"
-                        type="text"
-                        placeholder="Name"
-                        onChange={(e) => {
-                            setSignUpInputs({ ...signUpInputs, name: e.target.value });
-                        }}
-                    />
-                    <FieldWithLabel
-                        label="Email"
-                        type="email"
-                        placeholder="Email"
-                        onChange={(e) => {
-                            setSignUpInputs({ ...signUpInputs, email: e.target.value });
-                        }}
-                    />
-                    <FieldWithLabel
-                        label="Password"
-                        type="password"
-                        placeholder="Password"
-                        onChange={(e) => {
-                            setSignUpInputs({ ...signUpInputs, password: e.target.value });
-                        }}
-                    />
-                    <div className="pt-5 justify-center w-full">
-                        <PrimaryBtn onClick={signUp} label="Sign Up"></PrimaryBtn>
-                    </div>
+        <div className="basis-1/2 flex justify-center justify-items-center">
+            <div className="w-3/4 max-w-md block">
+                <div className="text-center font-bold text-xl">Create an Account</div>
+                <div className="text-center text-sm">
+                    Alreay have an account? <Link to={"/signin"}>SignIn</Link>{" "}
+                </div>
+                <FieldWithLabel
+                    label="Name"
+                    type="text"
+                    placeholder="Name"
+                    onChange={(e) => {
+                        setSignUpInputs({ ...signUpInputs, name: e.target.value });
+                    }}
+                />
+                <FieldWithLabel
+                    label="Email"
+                    type="email"
+                    placeholder="Email"
+                    onChange={(e) => {
+                        setSignUpInputs({ ...signUpInputs, email: e.target.value });
+                    }}
+                />
+                <FieldWithLabel
+                    label="Password"
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => {
+                        setSignUpInputs({ ...signUpInputs, password: e.target.value });
+                    }}
+                />
+                <div className="pt-5 justify-center w-full">
+                    <PrimaryBtn onClick={signUp} label="Sign Up"></PrimaryBtn>
                 </div>
             </div>
-        </form>
+        </div>
     );
 }

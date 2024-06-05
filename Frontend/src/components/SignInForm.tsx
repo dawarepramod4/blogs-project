@@ -16,9 +16,7 @@ export default function SignInForm() {
         try {
             // navigate("/blog");
             const response = await axios.post(`${BACKEND_URL}/api/v1/user/signin`, signInInputs);
-            // const response = await axios.get(`${BACKEND_URL}`);
             const jwt = response.data.jwt;
-            console.log("Signed In");
             localStorage.setItem("token", jwt);
             navigate("/blog");
         } catch (e) {
@@ -27,34 +25,32 @@ export default function SignInForm() {
         }
     }
     return (
-        <form>
-            <div className="basis-1/2 flex justify-center justify-items-center">
-                <div className="w-3/4 max-w-md block ">
-                    <div className="text-center font-bold text-xl">Sign Into Your Account</div>
-                    <div className="text-center text-sm">
-                        Don't have an account? <Link to={"/signup"}>Register</Link>{" "}
-                    </div>
-                    <FieldWithLabel
-                        label="Email"
-                        type="email"
-                        placeholder="Email"
-                        onChange={(e) => {
-                            setSiginInputs({ ...signInInputs, email: e.target.value });
-                        }}
-                    />
-                    <FieldWithLabel
-                        label="Password"
-                        type="password"
-                        placeholder="Password"
-                        onChange={(e) => {
-                            setSiginInputs({ ...signInInputs, password: e.target.value });
-                        }}
-                    />
-                    <div className="pt-5 justify-center w-full">
-                        <PrimaryBtn onClick={signIn} label="Sign In"></PrimaryBtn>
-                    </div>
+        <div className="basis-1/2 flex justify-center justify-items-center">
+            <div className="w-3/4 max-w-md block ">
+                <div className="text-center font-bold text-xl">Sign Into Your Account</div>
+                <div className="text-center text-sm">
+                    Don't have an account? <Link to={"/signup"}>Register</Link>{" "}
+                </div>
+                <FieldWithLabel
+                    label="Email"
+                    type="email"
+                    placeholder="Email"
+                    onChange={(e) => {
+                        setSiginInputs({ ...signInInputs, email: e.target.value });
+                    }}
+                />
+                <FieldWithLabel
+                    label="Password"
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => {
+                        setSiginInputs({ ...signInInputs, password: e.target.value });
+                    }}
+                />
+                <div className="pt-5 justify-center w-full">
+                    <PrimaryBtn onClick={signIn} label="Sign In"></PrimaryBtn>
                 </div>
             </div>
-        </form>
+        </div>
     );
 }
