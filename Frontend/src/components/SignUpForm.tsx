@@ -1,15 +1,33 @@
 import { useState } from "react";
 import { PrimaryBtn } from "./Buttons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FieldWithLabel } from "./InputFields";
+
 import { SignUpInput } from "@dawarepramod4/medium-common";
+import { BACKEND_URL } from "../config";
+
+import axios from "axios";
 
 export default function SignUpForm() {
+    const navigate = useNavigate();
     const [signUpInputs, setSignUpInputs] = useState<SignUpInput>({
         name: "",
         email: "",
         password: "",
     });
+
+    async function signUp() {
+        try {
+            const response = await axios.post(`${BACKEND_URL}/user/signup`, signUpInputs);
+            const jwt = response.data.jwt;
+            console.log("jwt");
+            localStorage.setItem("token", jwt);
+            navigate("/blog");
+        } catch (e) {
+            console.error(e);
+            alert("Error")
+        }
+    }
 
     return (
         <form>
@@ -44,7 +62,7 @@ export default function SignUpForm() {
                         }}
                     />
                     <div className="pt-5 justify-center w-full">
-                        <PrimaryBtn onClick={() => {}} label="Sign Up"></PrimaryBtn>
+                        <PrimaryBtn onClick={signUp} label="Sign Up"></PrimaryBtn>
                     </div>
                 </div>
             </div>

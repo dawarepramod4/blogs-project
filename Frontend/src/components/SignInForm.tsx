@@ -1,15 +1,33 @@
 import { useState } from "react";
 import { FieldWithLabel } from "../components/InputFields";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PrimaryBtn } from "../components/Buttons";
 import { SignInInput } from "@dawarepramod4/medium-common";
+import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 export default function SignInForm() {
+    const navigate = useNavigate();
     const [signInInputs, setSiginInputs] = useState<SignInInput>({
         email: "",
         password: "",
     });
-
+    async function signIn() {
+        try {
+            // navigate("/blog");
+            console.log("before request");
+            // alert("Error");
+            const response = await axios.post(`${BACKEND_URL}/user/signin`, signInInputs);
+            const jwt = response.data.jwt;
+            console.log("Signed In");
+            alert("Sined In");
+            localStorage.setItem("token", jwt);
+            navigate("/blog");
+        } catch (e) {
+            console.log(e);
+            alert("Error");
+        }
+    }
     return (
         <form>
             <div className="basis-1/2 flex justify-center justify-items-center">
@@ -35,7 +53,7 @@ export default function SignInForm() {
                         }}
                     />
                     <div className="pt-5 justify-center w-full">
-                        <PrimaryBtn onClick={() => {}} label="Sign In"></PrimaryBtn>
+                        <PrimaryBtn onClick={signIn} label="Sign In"></PrimaryBtn>
                     </div>
                 </div>
             </div>
