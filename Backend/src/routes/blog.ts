@@ -68,7 +68,20 @@ blogRouter.get("/all", async (c) => {
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
     try {
-        const blog = await prisma.post.findMany();
+        const blog = await prisma.post.findMany({
+            select: {
+                id: true,
+                title: true,
+                content: true,
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                    },
+                },
+            },
+        });
         console.log("blog", blog);
         if (!blog) {
             c.status(404);
