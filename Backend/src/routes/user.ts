@@ -24,6 +24,7 @@ userRouter.post("/signin", async (c) => {
         },
     });
     if (!user) {
+
         c.status(401);
         return c.body("Invalid credentials");
     }
@@ -59,6 +60,7 @@ userRouter.post("/signup", async (c) => {
         return c.json({ jwt: token });
     } catch (e) {
         c.status(401);
+        console.log(e);
         return c.json({ error: e });
     }
 });

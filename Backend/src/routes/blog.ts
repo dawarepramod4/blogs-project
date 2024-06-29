@@ -16,10 +16,12 @@ export const blogRouter = new Hono<{
 
 //middleware to check if the user is authenticated
 blogRouter.use("/*", async (c, next) => {
+console.log(c.req);
     const token = c.req.header("Authorization")?.split(" ")[1];
     if (!token) {
+        console.log("token", token);
         c.status(401);
-        return c.body("Unauthorized");
+        return c.body("Unauthorized from the middleware");
     }
     try {
         const payload = await verify(token, c.env.JWT_SECRET);
@@ -101,7 +103,21 @@ blogRouter.get("/:id", async (c) => {
     const id = c.req.param("id");
 
     try {
-        const blog = await prisma.post.findFirst({ where: { id: id } });
+        const blog = await prisma.post.findFirst({
+            where: { id: id },
+            select: {
+                id: true,
+                title: true,
+                content: true,
+                author: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                    },
+                },
+            },
+        });
         if (!blog) {
             c.status(404);
             return c.json({ error: "Blog not found" });

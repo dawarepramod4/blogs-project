@@ -18,7 +18,7 @@ export default function SignUpForm() {
 
     async function signUp() {
         try {
-            const response = await axios.post(`${BACKEND_URL}/user/signup`, signUpInputs);
+            const response = await axios.post(`${BACKEND_URL}/api/v1/user/signup`, signUpInputs);
             const jwt = response.data.jwt;
             console.log("jwt");
             localStorage.setItem("token", jwt);
